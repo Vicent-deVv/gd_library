@@ -5,3 +5,8 @@
 logs/
 dist/
 build/
+
+__pycache__/
+*.pyc
+.env/
+.venv/
