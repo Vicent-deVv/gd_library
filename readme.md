@@ -4,13 +4,14 @@ A python library for interacting with geometry dash data through a simple and in
 
 ## Features
 
--Retrieve Geometry Dash Levels (Partially completed)
--Search Players (not yet)
--Access level statistics (Completed)
--Decode and encode Geometry dash data (Decoding is done, encode not yet)
+## Features
 
--Easy to use API 
--Lightweight and fast
+-  Retrieve Geometry Dash levels 
+-  Search players (Work in progress)
+-  Access level statistics (Work in progress)
+-  Decode and encode Geometry Dash data (Work in progress, Decode is already working)
+-  Easy-to-use API 
+-  Lightweight and fast
 
 ## Installation
 
