@@ -4,8 +4,6 @@ A python library for interacting with geometry dash data through a simple and in
 
 ## Features
 
-## Features
-
 -  Retrieve Geometry Dash levels 
 -  Search players (Work in progress)
 -  Access level statistics (Work in progress)
