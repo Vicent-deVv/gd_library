@@ -1,4 +1,5 @@
 import requests
+import json
 from .parser import Parser
 
 class Client:
@@ -38,6 +39,11 @@ class Client:
             'officialSong' : data['12'],
             'length' : data['15']
         }
+
+        with open('data.json','w',encoding='utf-8') as file:
+            json.dump(relevant_data,file,indent=4,ensure_ascii=False)
+
+
 
         return relevant_data
 
