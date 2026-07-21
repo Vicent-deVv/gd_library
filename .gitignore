@@ -1,7 +1,5 @@
-# Archivo de entorno
 .env
 
-# Ignorar logs y resultados de compilación
 logs/
 dist/
 build/
@@ -12,3 +10,5 @@ __pycache__/
 .venv/
 
 data.json
+
+.gitignore
