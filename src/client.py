@@ -4,7 +4,7 @@ from .parser import Parser
 
 class Client:
     def __init__(self):
-        self.base_url = "https://www.boomlings.com/database/"
+        self.base_url = "https://www.boomlings.com/"
         self.secret = "Wmfd2893gb7"
         self.game_version = "22"
         self.binary_version = "47"
@@ -25,7 +25,7 @@ class Client:
             "page" : 0
         }
 
-        url = self.base_url + "getGJLevels21.php"
+        url = self.base_url + "database/getGJLevels21.php"
 
         req = requests.post(url=url,data=data,headers=headers)
 
@@ -49,5 +49,16 @@ class Client:
 
         
 
-    def search_song(self):
-        pass
+    def search_player(self, player_name: str):
+
+        data = {
+            "secret" : "Wmfd2893gb7",
+            "str" : player_name
+        }
+
+        url = self.base_url + "database/getGJUsers20.php"
+
+        req = requests.post(url=url, data=data)
+
+        data = self.parser.data_parser(req.text)
+
