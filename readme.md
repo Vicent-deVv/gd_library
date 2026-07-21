@@ -1,4 +1,4 @@
-# GD Project
+# GD Library
 
 A python library for interacting with geometry dash data through a simple and intuitive API
 
