@@ -1,28 +1,30 @@
 import time
 from src.client import Client
 from src.parser import Parser
+from src.models.player import Player
 
-def test_conexion():
+# You can use this file to test the entire library, but it is not required for the library to work correctly.
+
+def conection_test():
     #2 seconds of delay to prevent the "a lot of request ban"
     time.sleep(2)
 
     #the init of the client object
     client = Client()
 
-    #You can search any level, the only thing that you need is the ID of the level
-    #this return a dictionary with the relevant data, you can also change this in client.py
-    #finally a json file will create it in the root folder
-    data = client.search_level(89886591)
-
-
+    data = client.search_level(127323087)
     print(data)
 
 
+    #plyer = client.search_player("ForkyVerstappen")
+    #print(plyer)
 
-def test_de_encoder():
+
+
+def encoder_test():
     parser = Parser()
     text = "QUJD"
     print(parser.de_encoder64(text))
 
 if __name__ == "__main__":
-    test_conexion()
+    conection_test()

@@ -1,7 +1,7 @@
 class Player:
     def __init__(
         self,
-        account_id,
+        raw_data,
         player_id,
         username,
         stars=None,
@@ -9,7 +9,8 @@ class Player:
         creator_points=None,
         rank=None,
     ):
-        self.account_id = account_id
+        self.raw_data = raw_data
+
         self.player_id = player_id
         self.username = username
 
@@ -18,12 +19,7 @@ class Player:
         self.creator_points = creator_points
         self.rank = rank
 
-            
-    #this will return all the data already parsed
-    def raw_data(self):
-        pass
 
-    #if you want to add o remove data, you can change this part
-    def relevant_data(self):
-        pass
-
+    
+    def __str__(self):
+        return f"Player(name={self.username}, id={self.player_id}, stars={self.stars}, demons={self.demons},creator_points={self.creator_points},rank={self.rank})"

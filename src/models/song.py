@@ -1,20 +1,15 @@
 class Song:
     def __init__(
         self,
+        raw_data,
         song_id,
         name,
         artist,
         custom=True,
     ):
+        self.raw_data = raw_data
+
         self.song_id = song_id
         self.name = name
         self.artist = artist
         self.custom = custom
-
-    #this will return all the data already parsed
-    def raw_data(self):
-        pass
-
-    #if you want to add o remove data, you can change this part
-    def relevant_data(self):
-        pass

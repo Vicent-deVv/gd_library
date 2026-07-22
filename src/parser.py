@@ -1,3 +1,5 @@
+import re
+
 class Parser:
     def __init__(self):
         self.sixty_four_table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
@@ -7,7 +9,8 @@ class Parser:
         if raw_data == "-1" or not raw_data:
             return {"error": "Level not found"}
 
-        part = raw_data.split(":")
+        #this allow me to split the string with more parameters
+        part = re.split(r"[:|#]", raw_data)        
 
         data = {}
 
