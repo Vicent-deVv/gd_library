@@ -1,9 +1,13 @@
 import requests
 import json
+
 from .parser import Parser
+
+from .utils import difficulties
+
 from .models.player import Player
 from .models.level import Level
-from .utils import difficulties
+from .models.song import Song
 
 class Client:
 
@@ -58,12 +62,10 @@ class Client:
         
 
     def search_player(self, player_name):
-
         headers = {
             "User-Agent" : ""
         }
         
-
         data = {
             "secret" : "Wmfd2893gb7",
             "str" : player_name
@@ -73,24 +75,44 @@ class Client:
 
         req = requests.post(url=url, data=data,headers=headers)
 
-        data = self.parser.data_parser(req.text)
+        raw_dict = self.parser.data_parser(req.text)
 
         return Player(
-            raw_data=data,
-            player_id=data.get("2"),
-            username=data.get("1"),
-            stars=data.get("3", None),
-            demons=data.get("4", None),
-            creator_points=data.get("8", None),
-            rank=data.get("6", None)
+            raw_data=raw_dict,
+            player_id=raw_dict.get("2"),
+            username=raw_dict.get("1"),
+            stars=raw_dict.get("3", None),
+            demons=raw_dict.get("4", None),
+            creator_points=raw_dict.get("8", None),
+            rank=raw_dict.get("6", None)
 
         )
-        #return Player(
-        #    data['2'],
-        #    data['1'],
-        #    data['3'],
-        #    data['4'],
-        #    data['8'],
-        #    data['6']
-        #)
 
+    def search_song(self, song_id):
+        headers = {
+            "User-Agent" : ""
+        }
+                
+        data = {
+            "secret" : "Wmfd2893gb7",
+            "songID" : song_id
+        }
+
+        url = self.base_url + "database/getGJSongInfo.php"
+
+        req = requests.post(url=url,data=data,headers=headers)
+
+        raw_dict = self.parser.song_parser(req.text)
+
+        print(raw_dict)
+        
+        return Song(
+            raw_data=raw_dict,
+            song_id=raw_dict.get("1"),
+            name=raw_dict.get("2"),
+            artistID=raw_dict.get("3"),
+            artistName=raw_dict.get("4"),
+            link=raw_dict.get("10"),
+            youtubeURL=raw_dict.get("7"),
+            extraArtistNames=raw_dict.get("15")
+        )

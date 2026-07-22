@@ -10,7 +10,7 @@ class Parser:
             return {"error": "Level not found"}
 
         #this allow me to split the string with more parameters
-        part = re.split(r"[:|#]", raw_data)        
+        part = re.split(r"[:|#~%]", raw_data)        
 
         data = {}
 
@@ -21,6 +21,23 @@ class Parser:
             data[key] = value
 
         return data
+
+    def song_parser(self, raw_data: str) -> dict:
+    
+            if raw_data == "-1" or not raw_data:
+                return {"error": "Level not found"}
+    
+            part = raw_data.split("~|~")      
+    
+            data = {}
+    
+            for i in range(0, len(part)-1, 2):
+                key = part[i]
+                value = part[i+1]
+    
+                data[key] = value
+    
+            return data
         
     def de_encoder64(self, encrypted_text: str):
         

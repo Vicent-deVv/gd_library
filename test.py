@@ -12,12 +12,15 @@ def conection_test():
     #the init of the client object
     client = Client()
 
-    data = client.search_level(127323087)
-    print(data)
-
+    #data = client.search_level(127323087)
+    #print(data)
 
     #plyer = client.search_player("ForkyVerstappen")
     #print(plyer)
+
+    song = client.search_song(1569886)
+
+    print(song)
 
 
 
