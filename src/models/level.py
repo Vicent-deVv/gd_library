@@ -1,4 +1,4 @@
-from src.gd_api.parser import Parser
+from parser import Parser
 class Level:
     def __init__(
         self,
