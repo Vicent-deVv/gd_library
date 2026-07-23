@@ -1,7 +1,7 @@
 import time
-from client import Client
-from parser import Parser
-from models.player import Player
+from gd_api.parser import Parser
+from gd_api.models.player import Player
+from gd_api.client import Client
 
 # You can use this file to test the entire library, but it is not required for the library to work correctly.
 
