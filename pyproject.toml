@@ -7,7 +7,7 @@ name = "gd_api"
 version = "0.1.0"
 description = "Library/API for geometry dash"
 dependencies = [
-    requests==2.34.2
+    "requests==2.34.2"
 ]
 
 [tool.setuptools.packages.find]
