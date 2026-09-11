@@ -6,21 +6,22 @@ from gd_api.client import Client
 # You can use this file to test the entire library, but it is not required for the library to work correctly.
 
 def conection_test():
-    #2 seconds of delay to prevent the "a lot of request ban"
+    #2 seconds of delay to prevent the rate limit
     time.sleep(2)
 
     #the init of the client object
     client = Client()
 
-    #data = client.search_level(127323087)
-    #print(data)
+    data = client.search_level(6508283)
+    
+    print(data)
 
     #plyer = client.search_player("ForkyVerstappen")
     #print(plyer)
 
-    song = client.search_song(1569886)
+    #song = client.search_song(1569886)
 
-    print(song)
+    #print(song)
 
 
 

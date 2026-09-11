@@ -10,6 +10,7 @@ A python library for interacting with geometry dash data through a simple and in
 -  Decode and encode Geometry Dash data (Work in progress, Decode is already working)
 -  Easy-to-use API 
 -  Lightweight and fast
+-  Mini-Database implemented (sqlite3) for the automatic save of the level and avoid rate limit issues
 
 ## Installation
 

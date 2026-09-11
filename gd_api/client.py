@@ -9,6 +9,9 @@ from .models.player import Player
 from .models.level import Level
 from .models.song import Song
 
+from .database.LevelDatabase import LevelDatabase
+
+
 class Client:
 
     def __init__(self):
@@ -19,6 +22,14 @@ class Client:
         self.parser = Parser()
 
     def search_level(self, level_id: int):
+        level_db = LevelDatabase()
+
+        level_exists = level_db.search(level_id=level_id)
+
+        if(level_exists):
+            return level_exists
+        
+
         headers = {
             "User-Agent" : ""
         }
@@ -37,27 +48,41 @@ class Client:
 
         req = requests.post(url=url,data=data,headers=headers)
 
-        raw_dict = self.parser.data_parser(req.text)
+        raw_dict = self.parser.level_parser(req.text)
 
-        return Level(
-        raw_data=raw_dict,
-        level_id=int(raw_dict.get("1", 0)),
-        name=raw_dict.get("2", "Unkown"),
-        description=self.parser.de_encoder64(raw_dict.get("3", "")),
-        creator=self.search_player(raw_dict.get("6", "")),
-        difficulty=difficulties.get_level_difficulty(
-            dif_denominator=int(raw_dict.get("8", 0)),
-            dif_numerator=int(raw_dict.get("9", 0)),
-            is_demon=raw_dict.get("17") == "1", 
-            is_auto=raw_dict.get("25") == "1",
-            demon_diff=int(raw_dict.get("43", 0)),
-        ),
-        stars=int(raw_dict.get("18", 0)),
-        downloads=int(raw_dict.get("10", 0)),
-        likes=int(raw_dict.get("14", 0)),
-        length=raw_dict.get("15", "0"),
-        song=raw_dict.get("35", "0"),
-    )
+        print("------------------------------------------------------------------------------------------------------------------------------------------------")
+
+        print(req.text)
+
+        print("------------------------------------------------------------------------------------------------------------------------------------------------")
+
+        print(raw_dict)
+
+        print("------------------------------------------------------------------------------------------------------------------------------------------------")
+
+        level = Level(
+            raw_data=raw_dict["levels"],
+            level_id=int(raw_dict["levels"].get(1, 0)),
+            name=raw_dict["levels"].get(2, "Unkown"),
+            description=self.parser.de_encoder64(raw_dict["levels"].get(3, "")),
+            creator=self.search_player(raw_dict["levels"].get(6, "")),
+            difficulty=difficulties.get_level_difficulty(
+                dif_denominator=int(raw_dict["levels"].get(8, 0)),
+                dif_numerator=int(raw_dict["levels"].get(9, 0)),
+                is_demon=raw_dict["levels"].get(17) == "1", 
+                is_auto=raw_dict["levels"].get(25) == "1", 
+                demon_diff=int(raw_dict["levels"].get(43, 0)),
+            ),
+            stars=int(raw_dict["levels"].get(18, 0)),
+            downloads=int(raw_dict["levels"].get(10, 0)),
+            likes=int(raw_dict["levels"].get(14, 0)),
+            length=raw_dict["levels"].get(15, "0"),
+            song=raw_dict["levels"].get(35, "0"),
+        )
+
+        #level_db.insert(level)
+
+        return level
 
         
 
@@ -75,16 +100,16 @@ class Client:
 
         req = requests.post(url=url, data=data,headers=headers)
 
-        raw_dict = self.parser.data_parser(req.text)
+        raw_dict= self.parser.data_parser(req.text)
 
         return Player(
-            raw_data=raw_dict,
-            player_id=raw_dict.get("2"),
-            username=raw_dict.get("1"),
-            stars=raw_dict.get("3", None),
-            demons=raw_dict.get("4", None),
-            creator_points=raw_dict.get("8", None),
-            rank=raw_dict.get("6", None)
+            raw_data=raw_dict["levels"],
+            player_id=raw_dict["levels"].get("2"),
+            username=raw_dict["levels"].get("1"),
+            stars=raw_dict["levels"].get("3", None),
+            demons=raw_dict["levels"].get("4", None),
+            creator_points=raw_dict["levels"].get("8", None),
+            rank=raw_dict["levels"].get("6", None)
 
         )
 
@@ -104,15 +129,15 @@ class Client:
 
         raw_dict = self.parser.song_parser(req.text)
 
-        print(raw_dict)
+        print(raw_dict["levels"])
         
         return Song(
-            raw_data=raw_dict,
-            song_id=raw_dict.get("1"),
-            name=raw_dict.get("2"),
-            artistID=raw_dict.get("3"),
-            artistName=raw_dict.get("4"),
-            link=raw_dict.get("10"),
-            youtubeURL=raw_dict.get("7"),
-            extraArtistNames=raw_dict.get("15")
+            raw_data=raw_dict["levels"],
+            song_id=raw_dict["levels"].get("1"),
+            name=raw_dict["levels"].get("2"),
+            artistID=raw_dict["levels"].get("3"),
+            artistName=raw_dict["levels"].get("4"),
+            link=raw_dict["levels"].get("10"),
+            youtubeURL=raw_dict["levels"].get("7"),
+            extraArtistNames=raw_dict["levels"].get("15")
         )
