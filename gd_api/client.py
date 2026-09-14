@@ -61,11 +61,11 @@ class Client:
         print("------------------------------------------------------------------------------------------------------------------------------------------------")
 
         level = Level(
-            raw_data=raw_dict["levels"],
+            raw_data=raw_dict,
             level_id=int(raw_dict["levels"].get(1, 0)),
             name=raw_dict["levels"].get(2, "Unkown"),
             description=self.parser.de_encoder64(raw_dict["levels"].get(3, "")),
-            creator=self.search_player(raw_dict["levels"].get(6, "")),
+            creator=raw_dict["creators"][0],
             difficulty=difficulties.get_level_difficulty(
                 dif_denominator=int(raw_dict["levels"].get(8, 0)),
                 dif_numerator=int(raw_dict["levels"].get(9, 0)),
@@ -100,17 +100,16 @@ class Client:
 
         req = requests.post(url=url, data=data,headers=headers)
 
-        raw_dict= self.parser.data_parser(req.text)
+        raw_dict= self.parser.user_parser(req.text)
 
         return Player(
-            raw_data=raw_dict["levels"],
-            player_id=raw_dict["levels"].get("2"),
-            username=raw_dict["levels"].get("1"),
-            stars=raw_dict["levels"].get("3", None),
-            demons=raw_dict["levels"].get("4", None),
-            creator_points=raw_dict["levels"].get("8", None),
-            rank=raw_dict["levels"].get("6", None)
-
+            raw_data=raw_dict,
+            player_id=raw_dict.get("2"),
+            username=raw_dict.get("1"),
+            stars=raw_dict.get("3", None),
+            demons=raw_dict.get("4", None),
+            creator_points=raw_dict.get("8", None),
+            rank=raw_dict.get("6", None)
         )
 
     def search_song(self, song_id):
@@ -129,15 +128,15 @@ class Client:
 
         raw_dict = self.parser.song_parser(req.text)
 
-        print(raw_dict["levels"])
+        print(raw_dict)
         
         return Song(
-            raw_data=raw_dict["levels"],
-            song_id=raw_dict["levels"].get("1"),
-            name=raw_dict["levels"].get("2"),
-            artistID=raw_dict["levels"].get("3"),
-            artistName=raw_dict["levels"].get("4"),
-            link=raw_dict["levels"].get("10"),
-            youtubeURL=raw_dict["levels"].get("7"),
-            extraArtistNames=raw_dict["levels"].get("15")
+            raw_data=raw_dict,
+            song_id=raw_dict.get("1"),
+            name=raw_dict.get("2"),
+            artistID=raw_dict.get("3"),
+            artistName=raw_dict.get("4"),
+            link=raw_dict.get("10"),
+            youtubeURL=raw_dict.get("7"),
+            extraArtistNames=raw_dict.get("15")
         )
