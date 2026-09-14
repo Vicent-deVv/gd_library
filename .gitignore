@@ -12,3 +12,5 @@ __pycache__/
 data.json
 
 .gitignore
+
+gd_api_database.db

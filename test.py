@@ -15,11 +15,11 @@ def conection_test():
     #data = client.search_level(6508283)
     #print(data)
 
-    #plyer = client.search_player("ForkyVerstappen")
-    #print(plyer)
+    plyer = client.search_player("KyudenM")
+    print(plyer)
 
-    song = client.search_song(1569886)
-    print(song)
+    #song = client.search_song(1569886)
+    #print(song)
 
 
 
