@@ -90,7 +90,8 @@ class Client:
 
         req = requests.post(url=url, data=data,headers=headers)
 
-        raw_dict= self.parser.user_parser(req.text)
+        #raw_dict= self.parser.user_parser(req.text)
+        raw_dict= self.parser.simple_parser(req.text, ":", "Player")
 
         return Player(
             raw_data=raw_dict,
@@ -116,7 +117,7 @@ class Client:
 
         req = requests.post(url=url,data=data,headers=headers)
 
-        raw_dict = self.parser.song_parser(req.text)
+        raw_dict = self.parser.simple_parser(req.text, "~|~", "Song")
 
         print(raw_dict)
         

@@ -1,29 +1,8 @@
-import re
-
 class Parser:
     def __init__(self):
         self.sixty_four_table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 
-    #This is deprecated---------------------
-    def data_parser(self, raw_data: str) -> dict:
-
-        if raw_data == "-1" or not raw_data:
-            return {"error": "Level not found"}
-
-        #this allow me to split the string with more parameters
-        part = re.split(r"[:|#~%]", raw_data)        
-
-        data = {}
-
-        for i in range(0, len(part)-1, 2):
-            key = part[i]
-            value = part[i+1]
-
-            data[key] = value
-
-        return data
-    #---------------------------------------
-
+    #This only works for level_search function, because is a very specific response 
     def level_parser(self, raw_data: str) -> dict:
         if raw_data == "-1" or not raw_data:
             return {"error": "Level not found"}
@@ -87,12 +66,10 @@ class Parser:
 
         return result
 
-    def simple_parser(self, raw_data: str, pattern: str) -> dict:
-
-        
-    
+    #This function can parser almost everything, it only works for key -> value pair responses 
+    def simple_parser(self, raw_data: str, pattern: str, name: str) -> dict:
             if raw_data == "-1" or not raw_data:
-                return {"error": "Level not found"}
+                return {f"Error": "{name} not found"}
     
             part = raw_data.split(pattern)      
     
@@ -105,51 +82,6 @@ class Parser:
                 data[key] = value
     
             return data
-    
-    def song_parser(self, raw_data: str) -> dict:
-    
-            if raw_data == "-1" or not raw_data:
-                return {"error": "Level not found"}
-    
-            part = raw_data.split("~|~")      
-    
-            data = {}
-    
-            for i in range(0, len(part)-1, 2):
-                key = part[i]
-                value = part[i+1]
-    
-                data[key] = value
-    
-            return data
-
-    def user_parser(self, raw_data: str) -> dict:
-
-        if raw_data == "-1" or not raw_data:
-            return {"error": "user not found"}
-
-        part = raw_data.split(":")      
-
-        data = {}
-
-        for i in range(0, len(part)-1, 2):
-            key = part[i]
-            value = part[i+1]
-
-            data[key] = value
-
-        return data
-
-    def leaderboard_parser(self, raw_data: str) -> dict:
-
-        if raw_data == "-1" or not raw_data:
-            return {"error": "leaderboard not found"}
-
-        part = raw_data.split()
-    
-
-
-
 
 
 
@@ -199,7 +131,6 @@ class Parser:
 
         return result     
             
-
     def translator_64_word(self, word):
         counter = 0
 
