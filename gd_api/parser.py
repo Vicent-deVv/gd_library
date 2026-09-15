@@ -87,6 +87,24 @@ class Parser:
 
         return result
 
+    def simple_parser(self, raw_data: str, pattern: str) -> dict:
+
+        
+    
+            if raw_data == "-1" or not raw_data:
+                return {"error": "Level not found"}
+    
+            part = raw_data.split(pattern)      
+    
+            data = {}
+    
+            for i in range(0, len(part)-1, 2):
+                key = part[i]
+                value = part[i+1]
+    
+                data[key] = value
+    
+            return data
     
     def song_parser(self, raw_data: str) -> dict:
     
@@ -121,6 +139,23 @@ class Parser:
             data[key] = value
 
         return data
+
+    def leaderboard_parser(self, raw_data: str) -> dict:
+
+        if raw_data == "-1" or not raw_data:
+            return {"error": "leaderboard not found"}
+
+        part = raw_data.split()
+    
+
+
+
+
+
+
+
+
+    # ------------ Encoder and De-encoder section ----------------
 
     def de_encoder64(self, encrypted_text: str):
         

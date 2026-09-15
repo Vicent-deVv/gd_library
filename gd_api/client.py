@@ -130,3 +130,26 @@ class Client:
             youtubeURL=raw_dict.get("7"),
             extraArtistNames=raw_dict.get("15")
         )
+
+    def leaderboard_scores(self, count: int, type: str):
+        headers = {
+            "User-Agent" : ""
+        }
+
+        #Can be top, relative, friends, or creators. If left out it defaults to top
+        data = {
+            "secret": "Wmfd2893gb7",
+            "type": type,
+	        "count": count,
+	        "stat": 0
+        }       
+
+        url = self.base_url + "database/getGJScores20.php"
+
+        req = requests.post(url=url, data=data, headers=headers)
+
+        raw_dict = self.simple_parser(req.text, "|")
+
+        return(
+            
+        )
