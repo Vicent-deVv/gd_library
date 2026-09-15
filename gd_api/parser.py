@@ -22,22 +22,21 @@ class Parser:
             for level_str in sections[0].split("|"):
                 level_splitted = level_str.split(":")
                 for i in range(0, len(level_splitted) - 1, 2):
-                    result["levels"][i] = level_splitted[i]
-                    result["levels"][i + 1] = level_splitted[i + 1]
+                    key = level_splitted[i]
+                    val = level_splitted[i + 1]
+                    result["levels"][key] = val
 
 
         if sections[1]:
-            creators = []
             for cr_str in sections[1].split("|"):
                 creators_splitted = cr_str.split(":")
                 if len(creators_splitted) >= 3:
-                    creators.append({
+                    result['creators'].append({
                         "userID" : creators_splitted[0],
                         "username" : creators_splitted[1],
                         "accountID" : creators_splitted[2]
                     })
-
-            result["creators"].append(creators)
+        
 
         if sections[2]:
             songs = {}
@@ -82,10 +81,6 @@ class Parser:
                 data[key] = value
     
             return data
-
-
-
-
 
     # ------------ Encoder and De-encoder section ----------------
 

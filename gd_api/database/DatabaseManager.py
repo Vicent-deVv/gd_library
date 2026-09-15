@@ -36,12 +36,6 @@ class DatabaseManager(ABC):
     def search(self):
         pass
 
-    def commit(self):
-        try:
-            self.connection.commit()
-        except sqlite3.Error as e:
-            self.connection.rollback()
-            print(f"There was an error: {e}")
 
      
 

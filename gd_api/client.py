@@ -24,6 +24,7 @@ class Client:
     def search_level(self, level_id: int):
         level_db = LevelDatabase()
 
+        level_db.create()
         level_exists = level_db.search(level_id=level_id)
 
         if(level_exists):
@@ -50,25 +51,27 @@ class Client:
 
         raw_dict = self.parser.level_parser(req.text)
 
+        print(raw_dict)
+
         level = Level(
             raw_data=raw_dict,
-            level_id=int(raw_dict["levels"].get(1, 0)),
-            name=raw_dict["levels"].get(2, "Unkown"),
-            description=self.parser.de_encoder64(raw_dict["levels"].get(3, "")),
+            level_id=int(raw_dict["levels"].get("1") or 0),
+            name=raw_dict["levels"].get("2", "Unknown"),
+            description=self.parser.de_encoder64(raw_dict["levels"].get("3", "")),
             creator=raw_dict["creators"][0],
             difficulty=difficulties.get_level_difficulty(
-                dif_denominator=int(raw_dict["levels"].get(8, 0)),
-                dif_numerator=int(raw_dict["levels"].get(9, 0)),
-                is_demon=raw_dict["levels"].get(17) == "1", 
-                is_auto=raw_dict["levels"].get(25) == "1", 
-                demon_diff=int(raw_dict["levels"].get(43, 0)),
+                dif_denominator=int(raw_dict["levels"].get("8") or 0),
+                dif_numerator=int(raw_dict["levels"].get("9") or 0),
+                is_demon=raw_dict["levels"].get("17") == "1",
+                is_auto=raw_dict["levels"].get("25") == "1",
+                demon_diff=int(raw_dict["levels"].get("43") or 0),
             ),
-            stars=int(raw_dict["levels"].get(18, 0)),
-            downloads=int(raw_dict["levels"].get(10, 0)),
-            likes=int(raw_dict["levels"].get(14, 0)),
-            length=raw_dict["levels"].get(15, "0"),
-            song=raw_dict["levels"].get(35, "0"),
-        )
+            stars=int(raw_dict["levels"].get("18") or 0),
+            downloads=int(raw_dict["levels"].get("10") or 0),
+            likes=int(raw_dict["levels"].get("14") or 0),
+            length=raw_dict["levels"].get("15", "0"),
+            song=raw_dict["levels"].get("35", "0"),
+    )
 
         level_db.insert(level)
 
