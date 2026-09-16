@@ -2,6 +2,7 @@ import requests
 import json
 
 from .parser import Parser
+from .decoder import Decoder
 
 from .utils import difficulties
 
@@ -53,11 +54,14 @@ class Client:
 
         print(raw_dict)
 
+        decoder = Decoder()
+
+
         level = Level(
             raw_data=raw_dict,
             level_id=int(raw_dict["levels"].get("1") or 0),
             name=raw_dict["levels"].get("2", "Unknown"),
-            description=self.parser.de_encoder64(raw_dict["levels"].get("3", "")),
+            description=decoder.de_encoder64(raw_dict["levels"].get("3", "")),
             creator=raw_dict["creators"][0],
             difficulty=difficulties.get_level_difficulty(
                 dif_denominator=int(raw_dict["levels"].get("8") or 0),

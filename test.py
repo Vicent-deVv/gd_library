@@ -16,7 +16,7 @@ def conection_test():
 
 
     id_list = [10565740, 4284013, 27690100, 26681070, 23262780]
-
+#
     for i in id_list:
         time.sleep(5)
         data = client.search_level(i)
@@ -43,4 +43,4 @@ def encoder_test():
     print(parser.de_encoder64(text))
 
 if __name__ == "__main__":
-    database_test()
+    conection_test()
